@@ -1,4 +1,6 @@
+*.matadata/
 .settings
 .classpath
 .project
 bin/
+.metadata
