@@ -23,13 +23,20 @@ public class WeightetGraph {
 		
 	}
 	/**
+	 * 
+	 * @return all the vertecies in the graph
+	 */
+	public Vertex[] getallVertecies(){
+		return vertecies;
+	}
+	/**
 	 * creates some vertecies
 	 * @param howMany the number of vertecies to create
 	 */
 	private void createVertecies(int howMany){
 		vertecies = new Vertex[howMany];
 		for (int i=0;i<howMany;i++){
-			vertecies[i] = new Vertex();
+			vertecies[i] = new Vertex(i);
 		}
 	}
 	/**
@@ -40,13 +47,6 @@ public class WeightetGraph {
 	private void addEdge(int fromVertex,int toVertex){
 		int weight = random.nextInt(MAX_WEIGHT);
 		vertecies[fromVertex].addEdge(vertecies[toVertex], weight);
-	}
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		new WeightetGraph(20,10);
-
 	}
 
 }
