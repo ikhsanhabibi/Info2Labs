@@ -1,10 +1,14 @@
+import java.io.*;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class HashBook {
-	private int modolo = 0;
-	private ArrayList<String>[] hashBook;
+	public int modolo = 0; //the size of our hash Table
+	private ArrayList<String>[] hashBook; //our Hash Table
+	
+	//Statistics
+	public int mostCollisions = 0;
 	/**
 	 * @param args
 	 */
@@ -12,9 +16,10 @@ public class HashBook {
 		HashBook hashBook = new HashBook();
 		hashBook.hashWords();
 		
-		String testword = "adc";
+		String testword = "ahnbelu";
 		hashBook.scrabbleCheater(testword);
-		
+		System.out.print("\n Size of Hash Table:"+hashBook.modolo
+						+"\n Size of max Collision:"+	hashBook.mostCollisions);
 	}
 	/**
 	 * looks up the all permutions (plus collisions) of a word in a hash table
@@ -42,8 +47,7 @@ public class HashBook {
 	 * @return the hash Table as an array
 	 */
 	private ArrayList<String>[] hashWords(){
-		String[] book = {"Cda","dac", "Wolken", "Stra§e", "SŠule", "Bummerrang"};
-		//TODO: read in the words from a file
+		String[] book = readInFile(System.getProperty("user.dir")+"/dictonary.txt");
 		int numberOfWords = book.length;
 		modolo = getNextPrime(numberOfWords); //a prime number to generate the hash table
 		
@@ -57,6 +61,10 @@ public class HashBook {
 				hashBook[pos] = new ArrayList<String>();
 			}
 			hashBook[pos].add(book[i]);
+			//Statistics
+			if(hashBook[pos].size() > mostCollisions){
+				mostCollisions = hashBook[pos].size();
+			}
 		}
 		return hashBook;
 	}
@@ -79,6 +87,12 @@ public class HashBook {
 		}
 		return hashCode;
 	}
+	/**
+	 * tells weather two Strings are permututations of another
+	 * @param word the first String
+	 * @param compare the second String
+	 * @return wheather the two strings are permuations
+	 */
 	private boolean isPermutation(String word,String compare){
 		double code1 = getHashCode(word);
 		double code2 = getHashCode(compare);
@@ -102,6 +116,38 @@ public class HashBook {
 			}
 			i++;
 		}
+	}
+	/**
+	 * reads in a file of words sepated by a blank or a newline
+	 * @param file_name
+	 * @return
+	 */
+	private String[] readInFile(String file_name){
+		ArrayList<String> output = new ArrayList<String>();
+		try{
+			// Open the file that is the first 
+			// command line parameter
+			FileInputStream fstream = new FileInputStream(file_name);
+			// Get the object of DataInputStream
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String strLine;
+			//Read File Line By Line
+			while ((strLine = br.readLine()) != null)   {
+				String[] words = strLine.split(" ");
+				for(int i=0;i<words.length;i++){
+					output.add(words[i]);
+				}
+			}
+			//Close the input stream
+			in.close();
+		}
+		catch (Exception e){//Catch exception if any
+			System.err.println("Error: " + e.getMessage());
+		}
+		return output.toArray(new String[output.size()]);
+		 
+
 	}
 
 }
