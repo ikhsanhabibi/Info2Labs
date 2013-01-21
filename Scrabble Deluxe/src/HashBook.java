@@ -19,7 +19,13 @@ public class HashBook {
 		hashBook.hashWords();
 		
 		String testword = hashBook.randon7letters();
-		hashBook.scrabbleCheater(testword);
+		MakeSubstring substrings = new MakeSubstring(testword);
+		String[] allTesttsrings = substrings.getSubstrings();
+		System.out.print("Words you can built from the following letters: "+testword+"\n\n");
+		for(int i=0;i<allTesttsrings.length;i++){
+			hashBook.scrabbleCheater(allTesttsrings[i]);
+		}
+		
 		System.out.print("\n Size of Hash Table:"+hashBook.modolo
 						+"\n Size of max Collision:"+	hashBook.mostCollisions);
 		
@@ -35,7 +41,6 @@ public class HashBook {
 		return hashBook[pos];
 	}
 	public void scrabbleCheater(String letters){
-		System.out.print("Words you can built from the following letters: "+letters+"\n\n");
 		ArrayList<String> permutaions = lookup(letters);
 		if(permutaions != null){
 			Iterator<String> it = permutaions.iterator();
@@ -79,18 +84,21 @@ public class HashBook {
 	 * @return the hashNumber
 	 */
 	private double getHashCode(String word){
-		//normalize word and save it as array so we can sort it
-		word = word.toLowerCase();
-		String[] st = word.split("(?!^)");
-		Arrays.sort(st);//by sorting inside the word anagrams are mapped to the same number
+		if(word != ""){
+			//normalize word and save it as array so we can sort it
+			word = word.toLowerCase();
+			char[] st = word.toCharArray(); //word.split("(?!^)");
+			Arrays.sort(st);//by sorting inside the word anagrams are mapped to the same number
 				
-		int length = st.length;
-		double hashCode = 0;
-		for(int i=0;i<length;i++){
-			char ch = st[i].charAt(0); 
-			hashCode += Math.pow(ch*31, length-i+1);
-		}
-		return hashCode;
+			int length = st.length;
+			double hashCode = 0;
+			for(int i=0;i<length;i++){
+				char ch = st[i]; 
+				hashCode += Math.pow(ch*31, length-i+1);
+			}
+			return hashCode;
+		}else
+			return 0;
 	}
 	/**
 	 * tells weather two Strings are permututations of another

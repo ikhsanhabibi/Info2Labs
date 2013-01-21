@@ -12,6 +12,8 @@ public class MakeSubstring {
 	 * @param st the String to genereta the substrings from
 	 */
 	public MakeSubstring(String st){
+		allPerms = new HashSet<String>();
+		allSubstrings = new HashSet<String>();
 		//create all possible permutaions of the String
 		createAllPermuatations("",st);
 		//then step by step take away the last character from every permutation String 
@@ -61,10 +63,10 @@ public class MakeSubstring {
 		int stLength = st.length();//the legth of the string we are working with
 		char[] temp;
 		//redeuce one character after an other untill our string is as short as  shortestString
-		for(int i=-1;i<(stLength-shortestString);i++){
+		for(int i=0;i<(stLength-shortestString);i++){
 			temp = st.substring(0,stLength-i).toCharArray();
 			Arrays.sort(temp);//sort the result to avoid dublicats
-			out.add(temp.toString());
+			out.add(String.valueOf(temp));
 		}
 		return out;
 	}
