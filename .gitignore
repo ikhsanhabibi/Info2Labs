@@ -9,3 +9,5 @@ bin/
 *.xcbkptlist
 *.xcscheme
 *.plist
+*.1
+*.xcodeproj
