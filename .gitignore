@@ -1,7 +1,7 @@
-*.matadata/
+*.metadata/
 .settings
 .classpath
 .project
 bin/
 .metadata
-HistrgrammDejavu/HistrgrammDejavu.xcodeproj
+*.xcodeproj/
