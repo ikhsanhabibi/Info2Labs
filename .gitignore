@@ -4,4 +4,8 @@
 .project
 bin/
 .metadata
-*.xcodeproj/
+*.xcworkspacedata
+*.xcuserstate
+*.xcbkptlist
+*.xcscheme
+*.plist
