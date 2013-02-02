@@ -16,9 +16,9 @@ public class Determinanten {
         showMatrix(A, nrOfDigits);
         System.out.println();
         long startTime = System.nanoTime();
-        System.out.println("det(A) = "+det(A));
+        System.out.println("det(A) = "+det(A)+"\n");
         long endTime = System.nanoTime();
-        System.out.println( "dauer: " + ((double)(endTime - startTime)/1000000000) + "s" );
+        System.out.println( "dauer: " + ((double)(endTime - startTime)/1000000) + "ms" );
         System.out.println("Anzahl der Multiplikationen: "+anzahlMult);
     }
 
@@ -32,6 +32,7 @@ public class Determinanten {
     		anzahlMult += 2;
     	}
     	if(size==3){
+    		//Regel von Sarrus 
     		out = A[0][0]*A[1][1]*A[2][2] + A[0][1]*A[1][2]*A[2][0] + A[0][2]*A[1][0]*A[2][1] 
     		     -A[0][2]*A[1][1]*A[2][0] - A[0][0]*A[1][2]*A[2][1] - A[0][1]*A[1][0]*A[2][2];
     		anzahlMult += 12;
