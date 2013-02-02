@@ -65,9 +65,13 @@ public:
     }
     
     string toString(double number,string curr){
-        bool leadingSymbol = false;
+        string blank = " ";
+        //call toString method of the super Class
         string niceString = Format::toString(number);
-        if(curr.compare("$")){
+        //check wich currecy was inster and decide if it is a leading symbol
+        //false as a default when currency is unkown
+        bool leadingSymbol = false;
+        if(curr == "$"){
                 leadingSymbol = true;
         }
         else if(curr =="€"){
@@ -76,10 +80,11 @@ public:
         else if(curr =="£"){
                 leadingSymbol = true;
         }
+        //return a String with the curryeny appended
         if (leadingSymbol) {
             return curr.append(niceString);
         }else{
-            return niceString.append(curr);
+            return blank.append(niceString.append(curr));
         }
         
     }
@@ -93,8 +98,10 @@ int main(int argc, const char * argv[]){
     cout << f.toString(0.4798) << endl;
     cout << f.toString(-47777789.4798) << endl;
     cout << f.toString(-45477789.4798) << endl;
+    cout << "\n";
     Currancy c = Currancy(15,2);
     cout << c.toString(23402.5,"$") << endl;
+    cout << c.toString(23402.5,"€") << endl;
     return 0;
     
     
