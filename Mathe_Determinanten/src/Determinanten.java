@@ -5,12 +5,13 @@ import java.util.ArrayList;
 
 public class Determinanten {
     private double[][] A;
-    private int n, nrOfDigits, anzahlMult;
+    private int n, nrOfDigits, anzahlMult,O;
     
     public Determinanten(String filename){
         if (!readFromFile(filename)) return;
         nrOfDigits = 1;
         anzahlMult = 0;
+        O=0;
         
         System.out.println("A:");
         showMatrix(A, nrOfDigits);
@@ -19,6 +20,7 @@ public class Determinanten {
         System.out.println("det(A) = "+det(A)+"\n");
         long endTime = System.nanoTime();
         System.out.println( "dauer: " + ((double)(endTime - startTime)/1000000) + "ms" );
+        System.out.println("Steps: "+O);
         System.out.println("Anzahl der Multiplikationen: "+anzahlMult);
     }
 
@@ -66,6 +68,7 @@ public class Determinanten {
     				//schreibe werte nach 'ignorierter Zeile' um ein nach oben verschoben in B
     				B[i-1][j] = A[i][j+1];
     			}
+    			O ++;
     		}
     	}
     	//showMatrix(B,size-1);
